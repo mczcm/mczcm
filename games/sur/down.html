@@ -1,0 +1,19 @@
+<button id="downloadBtn">下载数据文件</button>
+<script>
+  function downloadFile(filename, content) {
+    const blob = new Blob([content], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  document.getElementById('downloadBtn').addEventListener('click', function() {
+    const filename = 'gamedata.内容';
+    const content = "请务必保存好";
+    downloadFile(filename, content);
+  });
+</script>

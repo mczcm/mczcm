@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>简单游戏</title>
+    <style>
+        #game-board {
+            width: 400px;
+            height: 400px;
+            border: 1px solid #000;
+            position: relative;
+        }
+        .player {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+ 
+<div id="game-board">
+    <div class="player" id="player"></div>
+</div>
+ 
+<script>
+    let player = document.getElementById('player');
+    let board = document.getElementById('game-board');
+ 
+    // 监听键盘事件
+    document.addEventListener('keydown', movePlayer);
+ 
+    function movePlayer(e) {
+        let left = player.offsetLeft;
+        let top = player.offsetTop;
+ 
+        // 根据按键移动玩家
+        switch (e.keyCode) {
+            case 37: // 左键
+                left -= 5;
+                break;
+            case 38: // 上键
+                top -= 5;
+                break;
+            case 39: // 右键
+                left += 5;
+                break;
+            case 40: // 下键
+                top += 5;
+                break;
+            default:
+                return; // 如果是其他键，则不移动
+        }
+ 
+        // 确保玩家不会移出游戏区域
+        if (left < 0) left = 0;
+        if (top < 0) top = 0;
+        if (left + player.offsetWidth > board.offsetWidth) left = board.offsetWidth - player.offsetWidth;
+        if (top + player.offsetHeight > board.offsetHeight) top = board.offsetHeight - player.offsetHeight;
+ 
+        // 应用移动
+        player.style.left = left + 'px';
+        player.style.top = top + 'px';
+    }
+</script>
+ 
+</body>
+</html>
